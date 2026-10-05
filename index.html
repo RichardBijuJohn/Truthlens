@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f4f1ea" />
+  <title>TruthLens | Evidence-led investigations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="TruthLens home">
+        <span class="brand-mark"><span></span><span></span><span></span></span>
+        <span>truth<span>lens</span></span>
+      </a>
+      <div class="workspace-label">Workspace</div>
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <a class="nav-item active" href="#investigate"><span class="nav-icon">⌕</span>Investigate</a>
+        <a class="nav-item" href="#history"><span class="nav-icon">↺</span>History <span class="nav-count">12</span></a>
+        <a class="nav-item" href="#sources"><span class="nav-icon">◫</span>Source library</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="usage-card">
+          <div class="usage-top"><span>Monthly investigations</span><strong>8 / 20</strong></div>
+          <div class="usage-bar"><span></span></div>
+          <p>Resets in 18 days</p>
+        </div>
+        <a class="nav-item" href="#settings"><span class="nav-icon">⚙</span>Settings</a>
+        <div class="account"><div class="avatar">AM</div><div><strong>Alex Morgan</strong><span>Researcher</span></div><span class="more">•••</span></div>
+      </div>
+    </aside>
+
+    <main class="main-content" id="investigate">
+      <header class="topbar">
+        <div class="breadcrumb"><span>Workspace</span><b>/</b><strong>New investigation</strong></div>
+        <div class="top-actions"><button class="icon-button" aria-label="Search">⌕</button><button class="help-button">? <span>Help center</span></button></div>
+      </header>
+
+      <section class="intro-section">
+        <div class="eyebrow"><span class="eyebrow-dot"></span>Evidence-led media intelligence</div>
+        <h1>What would you like<br /><em>to verify?</em></h1>
+        <p class="intro-copy">Drop in a claim, article, or URL. TruthLens follows the trail across sources, context, and time to help you see what holds up.</p>
+
+        <div class="investigation-card">
+          <div class="input-tabs" role="tablist" aria-label="Investigation input type">
+            <button class="input-tab active" data-placeholder="Paste a claim, article excerpt, or URL...">Claim or article</button>
+            <button class="input-tab" data-placeholder="https://example.com/article-to-check">URL</button>
+          </div>
+          <textarea id="claimInput" aria-label="Claim or article to investigate" placeholder="Paste a claim, article excerpt, or URL...">A viral post claims that the city has banned all outdoor water use this summer due to an unprecedented drought.</textarea>
+          <div class="input-footer"><span class="char-count" id="charCount">117 / 5,000</span><button class="investigate-button" id="investigateButton"><span class="button-icon">✦</span>Investigate claim <span class="button-arrow">→</span></button></div>
+        </div>
+        <div class="suggestion-row"><span>Try a sample</span><button class="suggestion" data-sample="A viral post claims that the city has banned all outdoor water use this summer due to an unprecedented drought.">Local water restrictions</button><button class="suggestion" data-sample="A headline says a new study proves coffee makes people live longer.">Health study headline</button><button class="suggestion" data-sample="This image is being shared as a photograph from yesterday's storm.">Image context</button></div>
+      </section>
+
+      <section class="report-section" id="report" aria-live="polite">
+        <div class="report-header"><div><div class="eyebrow compact"><span class="eyebrow-dot"></span>Latest investigation</div><h2>Investigation report</h2></div><div class="report-meta"><span class="status-pill"><span></span>Complete</span><span>Just now · 4 sources</span><button class="share-button">↗ Share</button></div></div>
+        <div class="report-grid">
+          <article class="verdict-panel"><div class="panel-label">Overall verdict</div><div class="verdict-row"><div class="verdict-icon">!</div><div><h3>Likely misleading</h3><p>The claim combines a real advisory with an exaggerated conclusion.</p></div></div><div class="confidence"><div><span>Confidence</span><strong>78%</strong></div><div class="confidence-track"><span></span></div><small>High confidence based on source agreement</small></div></article>
+          <article class="summary-panel"><div class="panel-label">The short version</div><p>The city has introduced <mark>targeted restrictions</mark> for non-essential watering, but there is no citywide ban on all outdoor water use. The original post leaves out the exception for hand watering and newly planted trees.</p><a href="#evidence" class="text-link">Read the reasoning <span>↓</span></a></article>
+        </div>
+
+        <div class="evidence-layout" id="evidence"><div class="evidence-main"><div class="section-heading"><h3>Evidence breakdown</h3><span>3 signals analyzed</span></div><div class="evidence-list">
+          <div class="evidence-item"><div class="evidence-status supporting">✓</div><div class="evidence-content"><div class="evidence-title"><strong>Official advisory confirms restrictions</strong><span class="evidence-tag supports">Supports part of claim</span></div><p>The city water department limits lawn irrigation to two days per week from June 1 through August 31.</p><div class="source-line"><span class="source-favicon city">C</span><span>City Water Department</span><span class="source-date">Published Jun 01, 2024</span></div></div></div>
+          <div class="evidence-item"><div class="evidence-status contradicting">×</div><div class="evidence-content"><div class="evidence-title"><strong>No blanket ban found in primary source</strong><span class="evidence-tag contradicts">Contradicts claim</span></div><p>The same advisory explicitly permits hand watering, drip irrigation, and watering of newly planted trees.</p><div class="source-line"><span class="source-favicon paper">N</span><span>North County Gazette</span><span class="source-date">Published Jun 03, 2024</span></div></div></div>
+          <div class="evidence-item"><div class="evidence-status context">◌</div><div class="evidence-content"><div class="evidence-title"><strong>Viral post removes important context</strong><span class="evidence-tag context-tag">Context missing</span></div><p>The post uses “all outdoor water use” but links to a summary that describes a narrower lawn irrigation schedule.</p><div class="source-line"><span class="source-favicon social">S</span><span>Public social post</span><span class="source-date">Shared Jun 05, 2024</span></div></div></div>
+        </div></div><aside class="timeline-panel"><div class="section-heading"><h3>Timeline</h3><span>2024</span></div><div class="timeline"><div class="timeline-point"><span></span><div><strong>Jun 01</strong><p>Restriction advisory published</p></div></div><div class="timeline-point"><span></span><div><strong>Jun 03</strong><p>Local coverage adds exceptions</p></div></div><div class="timeline-point current"><span></span><div><strong>Jun 05</strong><p>Claim begins circulating</p></div></div></div><a href="#" class="text-link">View source trail <span>→</span></a></aside></div>
+      </section>
+      <footer class="footer"><span>TruthLens analysis is a research aid, not a substitute for editorial judgment.</span><span>v1.0 · Built for clearer thinking</span></footer>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status">Investigation queued</div>
+  <script>window.TRUTHLENS_API = window.location.protocol === 'file:' ? 'http://localhost:3000' : '';</script>
+  <script src="app.js"></script>
+</body>
+</html>
