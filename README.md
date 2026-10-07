@@ -1,9 +1,10 @@
 # TruthLens
 
-<<<<<<< HEAD
-TruthLens investigates a claim or article against live web reporting. It searches GDELT first, falls back to Google News RSS when GDELT is rate-limited, retrieves source pages, and can use an AI model to compare the evidence.
-=======
-TruthLens investigates a claim or article against live web reporting. It searches GDELT first, falls back to Google News RSS when GDELT is rate-limited, retrieves source pages, and can use an AI model to compare the evidence.
+TruthLens is an AI-powered fact-checking system for investigating news claims, articles, and URLs.
 
+It searches live web sources, compares supporting and contradicting evidence, and produces a clear verdict with confidence, reasoning, source links, and relevant context.
 
->>>>>>> bfa749764c64b636470fd4721b4c6ad892b8d522
+Users can submit a simple statement, paste an article, provide a URL, or combine multiple sources in one investigation. TruthLens retrieves related reporting and presents the available evidence so users can understand why a claim appears supported, misleading, false, or uncertain.
+
+The project is designed to encourage careful research rather than replace human judgment. Every result should be reviewed alongside the linked sources, especially for breaking news and developing stories.
+
