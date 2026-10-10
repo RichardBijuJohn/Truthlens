@@ -98,19 +98,37 @@ async function askOpenAI(claim, evidence) {
 }
 
 function heuristicReport(claim, articles, warning = '') {
-  const words = claim.toLowerCase().split(/\W+/).filter((word) => word.length > 4);
-  const matching = articles.filter((article) => words.some((word) => article.title.toLowerCase().includes(word)));
-  const confidence = Math.min(65, 35 + matching.length * 6);
+  const stopWords = new Set(['about', 'after', 'again', 'being', 'could', 'does', 'from', 'have', 'into', 'more', 'should', 'that', 'their', 'there', 'these', 'they', 'this', 'what', 'when', 'where', 'which', 'while', 'with', 'would', 'your', 'claim', 'verify', 'fact', 'true', 'is', 'the', 'and', 'are']);
+  const words = claim.toLowerCase().split(/\W+/).filter((word) => word.length > 3 && !stopWords.has(word));
+  const scoredArticles = articles.map((article) => {
+    const title = article.title.toLowerCase();
+    const matches = words.filter((word) => title.includes(word)).length;
+    return { article, matches };
+  }).sort((left, right) => right.matches - left.matches);
+  const matching = scoredArticles.filter((item) => item.matches >= Math.max(1, Math.ceil(words.length * 0.2))).map((item) => item.article);
+  const titles = articles.map((article) => article.title.toLowerCase()).join(' ');
+  const contradictionSignal = /false|fake|hoax|debunk|misleading|not true|incorrect|denied|denies|fact check/.test(titles);
+  const agreement = matching.length / Math.max(articles.length, 1);
+  const coverage = words.length ? Math.min(1, matching.reduce((total, article) => total + words.filter((word) => article.title.toLowerCase().includes(word)).length, 0) / (Math.max(matching.length, 1) * words.length)) : 0;
+  const sourceDiversity = new Set(matching.map((article) => article.domain)).size / Math.max(matching.length, 1);
+  const corroborated = matching.length >= 3 && coverage >= 0.35;
+  const contradicted = contradictionSignal && matching.length >= 2;
+  const verdict = contradicted ? 'Likely misleading' : corroborated ? 'Supported' : 'Unclear';
+  const confidence = verdict === 'Supported'
+    ? Math.round(Math.min(94, 48 + agreement * 32 + coverage * 12 + sourceDiversity * 8))
+    : verdict === 'Likely misleading'
+      ? Math.round(Math.max(12, Math.min(58, 20 + (1 - agreement) * 18 + (1 - coverage) * 14)))
+      : Math.round(Math.min(55, 10 + agreement * 24 + coverage * 14 + sourceDiversity * 7));
   const aiMessage = warning.includes('429')
     ? 'OpenAI returned 429 (quota or rate limit), so this is a source scan rather than an AI verdict.'
     : warning
       ? `The AI service could not complete the analysis (${warning}), so this is a source scan.`
       : 'Add OPENAI_API_KEY to have the evidence compared and summarized by an AI fact-checking editor.';
   return {
-    verdict: matching.length >= 3 ? 'Unclear' : 'Unclear',
+    verdict,
     confidence,
-    summary: `TruthLens found ${articles.length} live article records related to this claim. ${aiMessage}`,
-    evidence: articles.slice(0, 3).map((article, index) => ({ title: article.title, description: `Live result from ${article.domain}. Open the source to inspect the reporting directly.`, stance: index === 0 ? 'context' : 'supports' })),
+    summary: `TruthLens found ${articles.length} live article records and ${matching.length} with strong topic overlap. ${aiMessage}`,
+    evidence: articles.slice(0, 3).map((article, index) => ({ title: article.title, description: `Live result from ${article.domain}. ${verdict === 'Supported' ? 'This source agrees with the supplied claim topic.' : verdict === 'Likely misleading' ? 'This source contains language that may challenge or qualify the claim.' : 'Open the source to inspect the reporting directly.'}`, stance: verdict === 'Likely misleading' && index === 0 ? 'contradicts' : verdict === 'Supported' ? 'supports' : 'context' })),
     timeline: articles.slice(0, 3).map((article) => ({ date: article.date.slice(0, 8) || 'Recent', description: article.title }))
   };
 }
@@ -136,18 +154,27 @@ async function investigate(input) {
     ...articles.map((article, index) => ({ ...article, excerpt: fetched[index]?.description || fetched[index]?.text.slice(0, 600) || '' }))
   ].filter((source, index, all) => all.findIndex((item) => item.url === source.url) === index);
   let analysis;
+  let analysisMode = 'Source scan';
   try {
     analysis = await askOpenAI(claim, records);
+    if (!analysis) {
+      analysis = heuristicReport(claim, records, 'No API key configured');
+    } else {
+      analysisMode = 'AI assisted';
+    }
   } catch (error) {
     analysis = heuristicReport(claim, records, error.message);
     analysis.warning = error.message;
+    analysisMode = 'AI fallback';
   }
   return {
     claim,
     sourceCount: records.length,
     live: true,
     provider,
-    aiAssisted: Boolean(process.env.OPENAI_API_KEY && !analysis.warning),
+    aiAssisted: analysisMode === 'AI assisted',
+    analysisMode,
+    analysisWarning: analysis.warning || '',
     ...analysis,
     sources: records.slice(0, 6)
   };
