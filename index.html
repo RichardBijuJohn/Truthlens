@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="theme.css" />
 </head>
 <body>
   <div class="app-shell">
@@ -24,11 +25,6 @@
         <a class="nav-item" href="#sources"><span class="nav-icon">◫</span>Source library</a>
       </nav>
       <div class="sidebar-bottom">
-        <div class="usage-card">
-          <div class="usage-top"><span>Monthly investigations</span><strong>8 / 20</strong></div>
-          <div class="usage-bar"><span></span></div>
-          <p>Resets in 18 days</p>
-        </div>
         <a class="nav-item" href="#settings"><span class="nav-icon">⚙</span>Settings</a>
         <div class="account"><div class="avatar">AM</div><div><strong>Alex Morgan</strong><span>Researcher</span></div><span class="more">•••</span></div>
       </div>
@@ -37,12 +33,12 @@
     <main class="main-content" id="investigate">
       <header class="topbar">
         <div class="breadcrumb"><span>Workspace</span><b>/</b><strong>New investigation</strong></div>
-        <div class="top-actions"><button class="icon-button" aria-label="Search">⌕</button><button class="help-button">? <span>Help center</span></button></div>
+        <div class="top-actions"><span class="live-chip"><i></i> Live web index</span><button class="icon-button" aria-label="Search">⌕</button><button class="help-button">? <span>Help center</span></button></div>
       </header>
 
       <section class="intro-section">
-        <div class="eyebrow"><span class="eyebrow-dot"></span>Evidence-led media intelligence</div>
-        <h1>What would you like<br /><em>to verify?</em></h1>
+        <div class="intro-kicker"><div class="eyebrow"><span class="eyebrow-dot"></span>Evidence-led media intelligence</div><span class="kicker-note">Built for the moment before you share</span></div>
+        <h1>Separate signal<br /><em>from noise.</em></h1>
         <p class="intro-copy">Drop in a claim, article, or URL. TruthLens follows the trail across sources, context, and time to help you see what holds up.</p>
 
         <div class="investigation-card">
@@ -54,13 +50,18 @@
           <div class="input-footer"><span class="char-count" id="charCount">117 / 5,000</span><button class="investigate-button" id="investigateButton"><span class="button-icon">✦</span>Investigate claim <span class="button-arrow">→</span></button></div>
         </div>
         <div class="suggestion-row"><span>Try a sample</span><button class="suggestion" data-sample="A viral post claims that the city has banned all outdoor water use this summer due to an unprecedented drought.">Local water restrictions</button><button class="suggestion" data-sample="A headline says a new study proves coffee makes people live longer.">Health study headline</button><button class="suggestion" data-sample="This image is being shared as a photograph from yesterday's storm.">Image context</button></div>
+        <div class="investigation-pulse" aria-label="Investigation pipeline">
+          <div class="pulse-head"><span>How TruthLens checks it</span><span class="pulse-status" id="pulseStatus">Ready to scan</span></div>
+          <div class="pulse-track"><div class="pulse-step active" data-stage="claim"><span>01</span><strong>Claim</strong><small>Extract the core statement</small></div><div class="pulse-line"></div><div class="pulse-step" data-stage="sources"><span>02</span><strong>Sources</strong><small>Find independent coverage</small></div><div class="pulse-line"></div><div class="pulse-step" data-stage="context"><span>03</span><strong>Context</strong><small>Check dates and framing</small></div><div class="pulse-line"></div><div class="pulse-step" data-stage="verdict"><span>04</span><strong>Verdict</strong><small>Weigh the evidence</small></div></div>
+        </div>
+        <div class="signal-ribbon"><div><span class="ribbon-number">01</span><strong>Live first</strong><small>Current reporting, not a static database</small></div><div><span class="ribbon-number">02</span><strong>Show the why</strong><small>Every verdict comes with an evidence trail</small></div><div><span class="ribbon-number">03</span><strong>Stay curious</strong><small>Unclear is a useful result when evidence is thin</small></div></div>
       </section>
 
       <section class="report-section" id="report" aria-live="polite">
-        <div class="report-header"><div><div class="eyebrow compact"><span class="eyebrow-dot"></span>Latest investigation</div><h2>Investigation report</h2></div><div class="report-meta"><span class="status-pill"><span></span>Complete</span><span>Just now · 4 sources</span><button class="share-button">↗ Share</button></div></div>
+        <div class="report-header"><div><div class="eyebrow compact"><span class="eyebrow-dot"></span>Ready when you are</div><h2>Investigation report</h2></div><div class="report-meta"><span class="status-pill"><span></span>Waiting</span><span>Enter a claim to begin</span><button class="share-button">↗ Share</button></div></div>
         <div class="report-grid">
-          <article class="verdict-panel"><div class="panel-label">Overall verdict</div><div class="verdict-row"><div class="verdict-icon">!</div><div><h3>Likely misleading</h3><p>The claim combines a real advisory with an exaggerated conclusion.</p></div></div><div class="confidence"><div><span>Confidence</span><strong>78%</strong></div><div class="confidence-track"><span></span></div><small>High confidence based on source agreement</small></div></article>
-          <article class="summary-panel"><div class="panel-label">The short version</div><p>The city has introduced <mark>targeted restrictions</mark> for non-essential watering, but there is no citywide ban on all outdoor water use. The original post leaves out the exception for hand watering and newly planted trees.</p><a href="#evidence" class="text-link">Read the reasoning <span>↓</span></a></article>
+          <article class="verdict-panel"><div class="panel-label">Overall verdict</div><div class="verdict-row"><div class="verdict-icon">?</div><div><h3>No verdict yet</h3><p>Your result will appear here after the live source scan.</p></div></div><div class="confidence"><div><span>Confidence</span><strong>—</strong></div><div class="confidence-track"><span style="width:0"></span></div><small>Confidence is calculated from the retrieved evidence</small></div></article>
+          <article class="summary-panel"><div class="panel-label">The short version</div><p>Enter a claim, article, or URL above to search live sources and build an evidence-based report.</p><a href="#investigate" class="text-link">Start an investigation <span>↑</span></a></article>
         </div>
 
         <div class="evidence-layout" id="evidence"><div class="evidence-main"><div class="section-heading"><h3>Evidence breakdown</h3><span>3 signals analyzed</span></div><div class="evidence-list">
