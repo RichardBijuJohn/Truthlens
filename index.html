@@ -1,74 +1,391 @@
-<!doctype html>
-<html lang="en">
+﻿<!doctype html>
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#f4f1ea" />
+  <meta name="theme-color" content="#f7f5ef" />
   <title>TruthLens | Check before you share</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="theme.css" />
 </head>
 <body>
-  <div class="app-shell">
-    <main class="main-content" id="investigate">
-      <header class="topbar">
-        <a class="brand" href="#investigate" aria-label="TruthLens home"><span class="brand-mark"><span></span><span></span><span></span></span><span>truth<span>lens</span></span></a>
-        <div class="top-actions"><span class="live-chip"><i></i> Live web index</span><button class="reset-button" id="resetButton" type="button">New check <span>R</span></button></div>
-      </header>
 
-      <section class="intro-section">
-        <div class="intro-kicker"><div class="eyebrow"><span class="eyebrow-dot"></span>Evidence-led media intelligence</div><span class="kicker-note">Built for the moment before you share</span></div>
-        <div class="hero-layout"><div><h1>Pause.<br /><em>Then share.</em></h1><p class="intro-copy">Paste a claim or URL and TruthLens follows the trail across live sources, context, and time.</p></div><div class="hero-note"><span class="hero-note-mark">01</span><strong>Signal over certainty</strong><p>See what the reporting supports, challenges, and leaves unclear.</p></div></div>
+  <!-- HEADER -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+      <a class="brand" href="#hero" aria-label="TruthLens home">
+        <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span class="brand-name">truth<span>lens</span></span>
+      </a>
+      <nav class="header-nav" id="headerNav" aria-label="Primary navigation">
+        <a href="#investigate" class="nav-link">Investigate</a>
+        <a href="#how-it-works" class="nav-link">How it works</a>
+        <a href="#about" class="nav-link">About</a>
+      </nav>
+      <div class="header-actions">
+        <span class="live-chip" aria-label="Live web index active"><i aria-hidden="true"></i> Live index</span>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode">
+          <span class="theme-icon-light">&#9728;</span>
+          <span class="theme-icon-dark">&#9681;</span>
+        </button>
+        <button class="reset-button" id="resetButton" type="button">New check <span class="kbd">R</span></button>
+        <button class="hamburger" id="hamburger" type="button" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+      <nav aria-label="Mobile navigation">
+        <a href="#investigate" class="drawer-link">Investigate</a>
+        <a href="#how-it-works" class="drawer-link">How it works</a>
+        <a href="#about" class="drawer-link">About</a>
+      </nav>
+    </div>
+  </header>
 
-        <div class="check-stage">
-          <aside class="side-rail side-rail-left" aria-label="TruthLens capabilities">
-            <div class="side-card side-card-accent"><span class="side-card-index">01 / LIVE</span><strong>Fresh signals</strong><p>Search current reporting instead of relying on a frozen answer.</p><span class="side-card-pulse"><i></i> Index online</span></div>
-            <div class="side-card side-card-stat"><span class="side-stat-value">8</span><span class="side-stat-label">source leads<br />per check</span></div>
-          </aside>
+  <!-- HERO -->
+  <section class="hero-section" id="hero">
+    <div class="hero-bg-grid" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="eyebrow animate-in" style="--delay:0ms">
+          <span class="eyebrow-dot" aria-hidden="true"></span>
+          Evidence-led media intelligence
+        </div>
+        <h1 class="hero-headline animate-in" style="--delay:80ms">
+          Pause.<br>
+          <em id="cycleText">Then share.</em>
+        </h1>
+        <p class="hero-copy animate-in" style="--delay:160ms">
+          Paste a claim or URL and TruthLens follows the trail across live sources, context, and time.
+        </p>
+        <div class="hero-cta animate-in" style="--delay:240ms">
+          <a href="#investigate" class="cta-button">Start an investigation <span aria-hidden="true">&#8595;</span></a>
+          <span class="cta-note">No sign-up required</span>
+        </div>
+      </div>
+      <div class="hero-right animate-in" style="--delay:320ms">
+        <div class="hero-stat-card">
+          <div class="stat-row">
+            <div class="stat-item">
+              <span class="stat-value" data-target="98412">0</span>
+              <span class="stat-label">Claims checked</span>
+            </div>
+            <div class="stat-divider" aria-hidden="true"></div>
+            <div class="stat-item">
+              <span class="stat-value" data-target="94" data-suffix="%">0%</span>
+              <span class="stat-label">Accuracy rate</span>
+            </div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-item">
+              <span class="stat-value" data-target="8">0</span>
+              <span class="stat-label">Sources per check</span>
+            </div>
+            <div class="stat-divider" aria-hidden="true"></div>
+            <div class="stat-item">
+              <span class="stat-value" data-target="1200" data-suffix="ms">0ms</span>
+              <span class="stat-label">Avg. response</span>
+            </div>
+          </div>
+          <div class="stat-badge">
+            <i class="pulse-dot" aria-hidden="true"></i>
+            Live web index &middot; Updated continuously
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-caret" aria-hidden="true"><span>&#8595;</span></div>
+  </section>
 
-          <div class="investigation-card">
+  <!-- HOW IT WORKS -->
+  <section class="how-section" id="how-it-works">
+    <div class="section-inner">
+      <div class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Methodology</div>
+      <h2 class="section-title">Three useful angles</h2>
+      <div class="how-grid">
+        <div class="how-card">
+          <span class="how-num">01</span>
+          <strong>Find live sources</strong>
+          <p>Search the current web, not a frozen database. Reporting changes, so should the evidence.</p>
+        </div>
+        <div class="how-card">
+          <span class="how-num">02</span>
+          <strong>Compare the framing</strong>
+          <p>Different outlets tell different stories. TruthLens surfaces the gaps between them.</p>
+        </div>
+        <div class="how-card">
+          <span class="how-num">03</span>
+          <strong>Show what holds up</strong>
+          <p>Every verdict comes with the trail of evidence. "Unclear" is a useful result when proof is thin.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INVESTIGATE -->
+  <section class="investigate-section" id="investigate">
+    <div class="section-inner">
+      <div class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Investigate</div>
+      <h2 class="section-title">Check this claim</h2>
+
+      <div class="drop-overlay" id="dropOverlay" aria-hidden="true">
+        <div class="drop-message">
+          <span>&#8853;</span>
+          Drop your claim or URL here
+        </div>
+      </div>
+
+      <div class="card-stage">
+        <div class="investigation-card" id="investigationCard">
           <div class="input-tabs" role="tablist" aria-label="Investigation input type">
-            <button class="input-tab active" type="button" data-placeholder="Paste a claim, article excerpt, or URL...">Claim or article</button>
-            <button class="input-tab" type="button" data-placeholder="https://example.com/article-to-check">URL</button><span class="input-hint">Ctrl + Enter to check</span>
+            <button class="input-tab active" type="button" role="tab" aria-selected="true" data-placeholder="Paste a claim, article excerpt, or URL...">Claim or article</button>
+            <button class="input-tab" type="button" role="tab" aria-selected="false" data-placeholder="https://example.com/article-to-check">URL</button>
+            <div class="tab-indicator" aria-hidden="true"></div>
+            <span class="input-hint">Ctrl+Enter to check &middot; / to focus</span>
           </div>
-          <textarea id="claimInput" aria-label="Claim or article to investigate" placeholder="Type your claim here..." autocomplete="off"></textarea>
-          <div class="input-footer"><span class="char-count" id="charCount">117 / 5,000</span><button class="investigate-button" id="investigateButton" type="button"><span class="button-icon">✦</span>Check this claim <span class="button-arrow">→</span></button></div>
+          <div class="textarea-wrap" id="textareaWrap">
+            <textarea
+              id="claimInput"
+              aria-label="Claim or article to investigate"
+              placeholder="Paste a claim, article excerpt, or URL..."
+              autocomplete="off"
+              rows="4"
+              maxlength="5000"
+            ></textarea>
           </div>
-
-          <aside class="side-rail side-rail-right" aria-label="How TruthLens works">
-            <div class="side-card side-card-steps"><span class="side-card-index">02 / METHOD</span><strong>Three useful angles</strong><div class="mini-step"><b>01</b><span>Find live sources</span></div><div class="mini-step"><b>02</b><span>Compare the framing</span></div><div class="mini-step"><b>03</b><span>Show what holds up</span></div></div>
-            <button class="insight-toggle" id="insightToggle" type="button" aria-expanded="false"><span>What makes a good check?</span><b>+</b></button>
-          </aside>
-        </div>
-        <div class="insight-panel" id="insightPanel" hidden><strong>Good checks are specific.</strong><span>Include a name, place, date, or link when you can. More context gives the source search something precise to test.</span></div>
-        <div class="suggestion-row"><span>Start with a lens</span><button class="suggestion" type="button" data-sample="A viral post claims that the city has banned all outdoor water use this summer due to an unprecedented drought.">Local restrictions</button><button class="suggestion" type="button" data-sample="A headline says a new study proves coffee makes people live longer.">Health headline</button><button class="suggestion" type="button" data-sample="This image is being shared as a photograph from yesterday's storm.">Image context</button></div>
-        <div class="investigation-pulse" aria-label="Investigation pipeline">
-          <div class="pulse-head"><span>Investigation flow</span><span class="pulse-status" id="pulseStatus">Ready to scan</span></div>
-          <div class="pulse-track"><div class="pulse-step active" data-stage="claim"><span>01</span><strong>Claim</strong><small>Extract the statement</small></div><div class="pulse-line"></div><div class="pulse-step" data-stage="sources"><span>02</span><strong>Sources</strong><small>Find live coverage</small></div><div class="pulse-line"></div><div class="pulse-step" data-stage="context"><span>03</span><strong>Context</strong><small>Check framing</small></div><div class="pulse-line"></div><div class="pulse-step" data-stage="verdict"><span>04</span><strong>Verdict</strong><small>Weigh the evidence</small></div></div>
-        </div>
-        <div class="signal-ribbon"><div><span class="ribbon-number">01</span><strong>Live first</strong><small>Current reporting, not a static database</small></div><div><span class="ribbon-number">02</span><strong>Show the why</strong><small>Every verdict comes with an evidence trail</small></div><div><span class="ribbon-number">03</span><strong>Stay curious</strong><small>Unclear is a useful result when evidence is thin</small></div></div>
-      </section>
-
-      <section class="report-section" id="report" aria-live="polite">
-        <div class="report-header"><div><div class="eyebrow compact"><span class="eyebrow-dot"></span>Ready when you are</div><h2>Investigation report</h2></div><div class="report-meta"><span class="status-pill"><span></span>Waiting</span><span>Enter a claim to begin</span><button class="share-button" type="button">↗ Share</button></div></div>
-        <div class="report-grid">
-          <article class="verdict-panel"><div class="panel-label">Overall verdict</div><div class="verdict-row"><div class="verdict-icon">?</div><div><h3>No verdict yet</h3><p>Your result will appear here after the live source scan.</p></div></div><div class="confidence"><div><span>Confidence</span><strong>—</strong></div><div class="confidence-track"><span style="width:0"></span></div><small>Confidence is calculated from the retrieved evidence</small></div></article>
-          <article class="summary-panel"><div class="panel-label">The short version</div><p>Enter a claim, article, or URL above to search live sources and build an evidence-based report.</p><a href="#investigate" class="text-link">Start an investigation <span>↑</span></a></article>
+          <div class="input-footer">
+            <div class="count-wrap">
+              <svg class="count-ring" viewBox="0 0 36 36" aria-hidden="true">
+                <circle class="ring-bg" cx="18" cy="18" r="15.9" />
+                <circle class="ring-fill" id="ringFill" cx="18" cy="18" r="15.9" />
+              </svg>
+              <span class="char-count" id="charCount">0 / 5,000</span>
+              <span class="word-count" id="wordCount">0 words</span>
+            </div>
+            <button class="investigate-button" id="investigateButton" type="button">
+              <span class="button-icon" aria-hidden="true">&#10022;</span>
+              Check this claim
+              <span class="button-arrow" aria-hidden="true">&#8594;</span>
+            </button>
+          </div>
         </div>
 
-        <div class="evidence-layout" id="evidence"><div class="evidence-main"><div class="section-heading"><h3>Evidence breakdown</h3><span>Waiting for a claim</span></div><div class="evidence-list"><p class="empty-state">Your evidence trail will appear here.</p></div></div><aside class="timeline-panel"><div class="section-heading"><h3>Timeline</h3><span>Live</span></div><div class="timeline"><p class="empty-state">Dates and context will appear here.</p></div></aside></div>
-      </section>
-      <footer class="footer">
-        <div class="footer-brand"><span class="footer-mark">✦</span><strong>truth<span>lens</span></strong><small>Evidence before instinct.</small></div>
-        <div class="footer-note"><span class="footer-dot"></span><span>Live web sources · Results can change as reporting develops</span></div>
-        <button class="footer-top" type="button" aria-label="Back to top">Back to top <span>↑</span></button>
-      </footer>
-    </main>
-  </div>
-  <div class="toast" id="toast" role="status">Investigation queued</div>
+        <div class="insight-row">
+          <button class="insight-toggle" id="insightToggle" type="button" aria-expanded="false">
+            <span>What makes a good check?</span><b aria-hidden="true">+</b>
+          </button>
+          <div class="insight-panel" id="insightPanel" hidden>
+            <strong>Good checks are specific.</strong>
+            Include a name, place, date, or link when you can.
+          </div>
+        </div>
+      </div>
+
+      <div class="suggestion-row">
+        <span>Try an example:</span>
+        <button class="suggestion" type="button" data-sample="A viral post claims that the city has banned all outdoor water use this summer due to an unprecedented drought.">Local restrictions</button>
+        <button class="suggestion" type="button" data-sample="A headline says a new study proves coffee makes people live longer.">Health headline</button>
+        <button class="suggestion" type="button" data-sample="This image is being shared as a photograph from yesterday's storm.">Image context</button>
+      </div>
+
+      <div class="pipeline" id="pipeline" aria-label="Investigation pipeline">
+        <div class="pipeline-header">
+          <span>Investigation flow</span>
+          <span class="pipeline-status" id="pulseStatus">Ready to scan</span>
+        </div>
+        <div class="pipeline-track">
+          <div class="stage-card active" data-stage="claim">
+            <div class="stage-icon" aria-hidden="true">&#10022;</div>
+            <strong>Claim</strong>
+            <small>Extract the statement</small>
+            <div class="stage-bar"><span></span></div>
+          </div>
+          <div class="stage-connector" aria-hidden="true"><span></span></div>
+          <div class="stage-card" data-stage="sources">
+            <div class="stage-icon" aria-hidden="true">&#8853;</div>
+            <strong>Sources</strong>
+            <small>Find live coverage</small>
+            <div class="stage-bar"><span></span></div>
+          </div>
+          <div class="stage-connector" aria-hidden="true"><span></span></div>
+          <div class="stage-card" data-stage="context">
+            <div class="stage-icon" aria-hidden="true">&#9678;</div>
+            <strong>Context</strong>
+            <small>Check framing</small>
+            <div class="stage-bar"><span></span></div>
+          </div>
+          <div class="stage-connector" aria-hidden="true"><span></span></div>
+          <div class="stage-card" data-stage="verdict">
+            <div class="stage-icon" aria-hidden="true">&#9689;</div>
+            <strong>Verdict</strong>
+            <small>Weigh the evidence</small>
+            <div class="stage-bar"><span></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REPORT -->
+  <section class="report-section" id="report" aria-live="polite">
+    <div class="section-inner">
+      <div class="report-header">
+        <div>
+          <div class="eyebrow compact"><span class="eyebrow-dot" aria-hidden="true"></span>Ready when you are</div>
+          <h2>Investigation report</h2>
+        </div>
+        <div class="report-meta">
+          <span class="status-pill"><span aria-hidden="true"></span>Waiting</span>
+          <span class="report-source-count">Enter a claim to begin</span>
+          <button class="share-button" type="button" id="shareButton">&#8599; Share</button>
+        </div>
+      </div>
+
+      <div class="report-grid">
+        <article class="verdict-panel">
+          <div class="panel-label">Overall verdict</div>
+          <div class="verdict-gauge-wrap">
+            <svg class="verdict-gauge" viewBox="0 0 120 120" aria-hidden="true">
+              <circle class="gauge-track" cx="60" cy="60" r="50" />
+              <circle class="gauge-fill" id="gaugeFill" cx="60" cy="60" r="50" />
+            </svg>
+            <div class="gauge-center">
+              <div class="verdict-icon" id="verdictIcon">?</div>
+            </div>
+          </div>
+          <div class="verdict-body">
+            <h3 id="verdictTitle">No verdict yet</h3>
+            <p id="verdictDesc">Your result will appear here after the live source scan.</p>
+          </div>
+          <div class="confidence">
+            <div class="conf-labels">
+              <span>Confidence</span>
+              <strong id="confValue">&#8212;</strong>
+            </div>
+            <div class="confidence-track">
+              <span id="confBar" style="width:0"></span>
+            </div>
+            <small id="confNote">Confidence is calculated from the retrieved evidence</small>
+          </div>
+        </article>
+
+        <article class="summary-panel">
+          <div class="panel-label">The short version</div>
+          <p id="summaryText">Enter a claim, article, or URL above to search live sources and build an evidence-based report.</p>
+          <a href="#investigate" class="text-link">Start an investigation <span aria-hidden="true">&#8593;</span></a>
+        </article>
+      </div>
+
+      <div class="evidence-layout" id="evidence">
+        <div class="evidence-main">
+          <div class="section-heading">
+            <h3>Evidence breakdown</h3>
+            <span id="evidenceCount">Waiting for a claim</span>
+          </div>
+          <div class="evidence-list" id="evidenceList">
+            <p class="empty-state">Your evidence trail will appear here.</p>
+          </div>
+          <div class="live-sources" id="liveSourcesSection">
+            <div class="section-heading">
+              <h3>Open sources</h3>
+              <span>Retrieved from the live web</span>
+            </div>
+            <div class="sources-grid" id="sourcesList">
+              <p class="empty-state">Sources will appear here.</p>
+            </div>
+          </div>
+        </div>
+
+        <aside class="timeline-panel">
+          <div class="section-heading">
+            <h3>Timeline</h3>
+            <span class="live-badge">Live</span>
+          </div>
+          <div class="timeline" id="timeline">
+            <p class="empty-state">Dates and context will appear here.</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about-section" id="about">
+    <div class="section-inner about-inner">
+      <div>
+        <div class="eyebrow"><span class="eyebrow-dot"></span>About</div>
+        <h2 class="section-title" style="margin-top:14px">Built for the moment<br>before you share</h2>
+        <p class="about-copy">TruthLens is designed to encourage careful research rather than replace human judgement. Every result should be reviewed alongside the linked sources.</p>
+      </div>
+      <div class="signal-ribbon">
+        <div class="ribbon-item">
+          <span class="ribbon-num">01</span>
+          <strong>Live first</strong>
+          <small>Current reporting, not a static database</small>
+        </div>
+        <div class="ribbon-item">
+          <span class="ribbon-num">02</span>
+          <strong>Show the why</strong>
+          <small>Every verdict comes with an evidence trail</small>
+        </div>
+        <div class="ribbon-item">
+          <span class="ribbon-num">03</span>
+          <strong>Stay curious</strong>
+          <small>Unclear is a useful result when evidence is thin</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-top-bar">
+      <div class="footer-brand">
+        <span class="footer-mark" aria-hidden="true">&#10022;</span>
+        <div>
+          <strong>truth<span>lens</span></strong>
+          <small>Evidence before instinct.</small>
+        </div>
+      </div>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <div class="footer-col">
+          <span class="footer-col-title">Product</span>
+          <a href="#investigate">Investigate</a>
+          <a href="#how-it-works">How it works</a>
+        </div>
+        <div class="footer-col">
+          <span class="footer-col-title">Trust</span>
+          <a href="#about">About</a>
+          <a href="#about">Methodology</a>
+        </div>
+        <div class="footer-col">
+          <span class="footer-col-title">Connect</span>
+          <a href="https://github.com" target="_blank" rel="noreferrer">GitHub &#8599;</a>
+          <a href="mailto:hello@truthlens.dev">Feedback</a>
+        </div>
+      </nav>
+      <div class="footer-status">
+        <div class="status-row">
+          <i class="footer-pulse" aria-hidden="true"></i>
+          <span>All systems live</span>
+        </div>
+        <span class="footer-time" id="footerTime"></span>
+        <small>Results can change as reporting develops</small>
+      </div>
+    </div>
+    <div class="footer-bottom-bar">
+      <span>&copy; 2026 TruthLens &middot; Evidence-led media intelligence</span>
+      <span>Live web sources &middot; Privacy-respecting</span>
+      <span class="version-badge">v2.0</span>
+      <button class="back-top" type="button" id="backTop" aria-label="Back to top">Back to top &#8593;</button>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
   <script>window.TRUTHLENS_API = window.location.protocol === 'file:' ? 'http://localhost:3000' : '';</script>
   <script src="app.js"></script>
 </body>
