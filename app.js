@@ -7,6 +7,9 @@ const tabs = document.querySelectorAll('.input-tab');
 const suggestions = document.querySelectorAll('.suggestion');
 const pulseSteps = document.querySelectorAll('.pulse-step');
 const pulseStatus = document.querySelector('#pulseStatus');
+const resetButton = document.querySelector('#resetButton');
+const insightToggle = document.querySelector('#insightToggle');
+const insightPanel = document.querySelector('#insightPanel');
 
 function updateCount() {
   charCount.textContent = `${claimInput.value.length.toLocaleString()} / 5,000`;
@@ -62,6 +65,36 @@ function renderReport(data) {
 
 claimInput.addEventListener('input', updateCount);
 
+claimInput.addEventListener('keydown', (event) => {
+  if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
+    event.preventDefault();
+    investigateButton.click();
+  }
+});
+
+resetButton?.addEventListener('click', () => {
+  window.location.reload();
+});
+
+insightToggle?.addEventListener('click', () => {
+  const isOpen = insightToggle.getAttribute('aria-expanded') === 'true';
+  insightToggle.setAttribute('aria-expanded', String(!isOpen));
+  insightPanel.hidden = isOpen;
+  insightToggle.querySelector('b').textContent = isOpen ? '+' : '−';
+});
+
+report.addEventListener('click', async (event) => {
+  const shareButton = event.target.closest('.share-button');
+  if (!shareButton) return;
+  const text = `TruthLens check: ${claimInput.value.trim()}`;
+  try {
+    await navigator.clipboard.writeText(text);
+    showToast('Check copied to clipboard');
+  } catch {
+    showToast('Copy is unavailable in this browser');
+  }
+});
+
 suggestions.forEach((suggestion) => {
   suggestion.addEventListener('click', () => {
     claimInput.value = suggestion.dataset.sample;
@@ -106,13 +139,13 @@ investigateButton.addEventListener('click', async () => {
     renderReport(data);
     setPulse('verdict', 'Evidence weighed');
     document.body.classList.remove('is-investigating');
-    investigateButton.innerHTML = '<span class="button-icon">✦</span>Investigate claim <span class="button-arrow">→</span>';
+    investigateButton.innerHTML = '<span class="button-icon">✦</span>Check this claim <span class="button-arrow">→</span>';
     report.classList.add('report-reveal');
     report.scrollIntoView({ behavior: 'smooth', block: 'start' });
     showToast('Investigation complete');
   } catch (error) {
     document.body.classList.remove('is-investigating');
-    investigateButton.innerHTML = '<span class="button-icon">✦</span>Investigate claim <span class="button-arrow">→</span>';
+    investigateButton.innerHTML = '<span class="button-icon">✦</span>Check this claim <span class="button-arrow">→</span>';
     showToast(error.message);
   }
 });
