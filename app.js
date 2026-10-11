@@ -99,7 +99,7 @@ if (statCard) {
 }
 
 // ── HEADLINE CYCLE ANIMATION ─────────────────────────────────
-const phrases = ['Then share.', 'Then verify.', 'Then think.', 'Then share.'];
+const phrases = ['Then share.', 'Then verify.', 'Then think.','Then act.', 'Then improve.'];
 let phraseIdx = 0;
 const cycleEl = document.querySelector('#cycleText');
 
