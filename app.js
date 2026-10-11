@@ -31,8 +31,10 @@ const shareButton      = document.querySelector('#shareButton');
 function applyTheme(t) {
   document.documentElement.dataset.theme = t;
   localStorage.setItem('tl-theme', t);
+  themeToggle?.setAttribute('aria-label', t === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', t === 'dark' ? '#141a17' : '#f7f5ef');
 }
-applyTheme(localStorage.getItem('tl-theme') || 'light');
+applyTheme(localStorage.getItem('tl-theme') || 'dark');
 
 themeToggle?.addEventListener('click', () => {
   const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
