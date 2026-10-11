@@ -8,3 +8,4 @@ Users can submit a simple statement, paste an article, provide a URL, or combine
 
 The project is designed to encourage careful research rather than replace human judgment. Every result should be reviewed alongside the linked sources, especially for breaking news and developing stories.
 
+Check out the live demo:https://truthlens-sph7.onrender.com/
