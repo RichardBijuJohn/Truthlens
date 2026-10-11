@@ -212,7 +212,7 @@ createServer(async (request, response) => {
     }
   }
   return serveStatic(request, response);
-}).listen(port, () => {
-  console.log(`TruthLens running at http://localhost:${port}`);
+}).listen(port, '0.0.0.0', () => {
+  console.log(`TruthLens running on port ${port}`);
   console.log(process.env.OPENAI_API_KEY ? 'AI verdicts enabled' : 'AI verdicts disabled: add OPENAI_API_KEY to .env');
 });
